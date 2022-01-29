@@ -1,0 +1,49 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable new-cap */
+/* eslint-disable max-len */
+import {ApolloServer, gql} from "apollo-server-express";
+import {auth} from "firebase-admin";
+import express from "express";
+import http from "http";
+import {DocumentNode} from "graphql";
+
+export const typeDefs = gql`
+    type UserProfile {
+        id: String
+        email: String
+        displayName: String
+    }
+
+    type Query {
+        userProfile(id: String): UserProfile
+    }
+`;
+
+export const resolvers = {
+  Query: {
+    userProfile: async (_:any, args: any) => {
+      if (!args.id) return null;
+      const {uid, email, displayName} = await auth().getUser(args.id);
+      return {
+        id: uid,
+        email,
+        displayName,
+      };
+    },
+  },
+};
+
+async function startApolloServer(typeDefs: DocumentNode, resolvers: { Query: { userProfile: (_: any, args: any) => Promise<{ id: string; email: string | undefined; displayName: string | undefined; } | null>; }; }) {
+  const app = express();
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
+  await server.start();
+  server.applyMiddleware({app});
+  await new Promise<void>((resolve) => httpServer.listen({port: 4002}, resolve));
+  console.log(`🚀 Server ready at http://localhost:4002${server.graphqlPath}`);
+}
+
+export default startApolloServer;
