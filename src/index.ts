@@ -3,6 +3,7 @@ import 'module-alias/register';
 import * as dotenv from 'dotenv';
 import express, { Request, Response, Application } from 'express';
 import morgan from 'morgan';
+import colors from 'colors';
 import erroHandler from '@middlewares/error';
 
 // Route files
@@ -10,6 +11,8 @@ import auth from '@routes/auth';
 import Config from '@lib/config';
 
 const { APP_PORT, NODE_ENV } = Config;
+// Colors
+colors.enable();
 
 // Dotenv
 dotenv.config();
@@ -32,5 +35,5 @@ app.use('/api/v1/auth', auth);
 app.use(erroHandler);
 
 app.listen(APP_PORT, () => console.log(
-  `Server running in ${NODE_ENV} mode on port ${APP_PORT}`,
+  `Server running in ${NODE_ENV} mode on port ${APP_PORT}`.green,
 ));

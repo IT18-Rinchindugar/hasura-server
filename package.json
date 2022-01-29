@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@types/nodemailer": "^6.4.4",
+    "colors": "^1.4.0",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "express-async-handler": "^1.2.0",
@@ -24,6 +25,7 @@
     "nodemailer": "^6.7.2"
   },
   "devDependencies": {
+    "@types/colors": "^1.2.1",
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.12",
