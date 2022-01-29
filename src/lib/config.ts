@@ -7,7 +7,8 @@ const {
   NODE_ENV = 'development',
   APP_PORT = 3000,
   GOOGLE_FIREBASE_CONFIG = 'firebase-config.json',
-  EMAIL_PROVIDER = 'emailProvider',
+  EMAIL_PROVIDER = '',
+  LOG_PATH = '',
 } = process.env;
 
 const config: ProcessEnv = {
@@ -15,6 +16,7 @@ const config: ProcessEnv = {
   APP_PORT,
   GOOGLE_FIREBASE_CONFIG,
   EMAIL_PROVIDER,
+  LOG_PATH,
 };
 
 export default config;

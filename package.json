@@ -22,7 +22,8 @@
     "express-async-handler": "^1.2.0",
     "firebase-admin": "^10.0.2",
     "http-status": "^1.5.0",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.2",
+    "winston": "^3.5.0"
   },
   "devDependencies": {
     "@types/colors": "^1.2.1",
@@ -54,7 +55,7 @@
     "@middlewares": "src/middlewares",
     "@models": "src/models",
     "@routes": "src/routes",
-    "@types": "src/types",
+    "@appTypes": "src/types",
     "@utils": "src/utils"
   },
   "config": {
