@@ -37,7 +37,7 @@ const sendEmail = (emailObject: EmailObject) => {
   const transporter = nodemailer.createTransport(transport);
 
   const params: EmailParams = {
-    from: from,
+    from,
     to: recipient,
     subject: emailObject.subject,
     text: emailObject.bodyText,
@@ -61,4 +61,6 @@ const sendEmail = (emailObject: EmailObject) => {
 
 // }
 
-export { sendEmail };
+const renderEmail = 'Email';
+
+export default { sendEmail, renderEmail };
