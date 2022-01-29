@@ -9,11 +9,11 @@ import winston from '@config/winston';
 import express, { Application, Request, Response } from 'express';
 import http from 'http';
 import errorHandler, { notFound } from '@middlewares/error';
+import resolvers from '@appGraphql/resolvers';
+import typeDefs from '@appGraphql/typeDefs';
 
 // Route files
 import { auth } from '@routes';
-import { typeDefs } from './graphql/typeDefs';
-import resolvers from './graphql/resolvers';
 
 const { APP_PORT, NODE_ENV } = config;
 
@@ -35,13 +35,13 @@ export const createApp = async () => {
   app.use(errorHandler);
 
   // Logging middleware
-  if (NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-  }
+  // if (NODE_ENV === 'development') {
+  //   app.use(morgan('dev'));
+  // }
 
-  if (NODE_ENV === 'production') {
-    app.use(morgan('combined', { stream: winston.stream }));
-  }
+  // if (NODE_ENV === 'production') {
+  //   app.use(morgan('combined', { stream: winston.stream }));
+  // }
 
   const httpServer = http.createServer(app);
 

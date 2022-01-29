@@ -11,3 +11,5 @@ export const typeDefs = gql`
         userProfile(id: String): UserProfile
     }
 `;
+
+export default typeDefs;

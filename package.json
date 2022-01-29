@@ -59,7 +59,8 @@
     "@models": "src/models",
     "@routes": "src/routes",
     "@appTypes": "src/types",
-    "@utils": "src/utils"
+    "@utils": "src/utils",
+    "@appGraphql": "src/graphql"
   },
   "config": {
     "commitizen": {
