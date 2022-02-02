@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import statusCode from 'http-status';
 import asyncHandler from 'express-async-handler';
-import * as dotenv from 'dotenv';
 import firebase, { auth } from 'firebase-admin';
+import fetch from 'node-fetch';
 import path from 'path';
+import config from '@lib/config';
 
-dotenv.config();
-const { GOOGLE_FIREBASE_CONFIG } = process.env;
-
+const { GOOGLE_FIREBASE_CONFIG, GOOGLE_FIREBASE_WEB_API_KEY } = config;
+const AUTH_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${GOOGLE_FIREBASE_WEB_API_KEY}`;
 const keyFilename = path.join(__dirname, `../config/${GOOGLE_FIREBASE_CONFIG}`);
 
 firebase.initializeApp({
@@ -53,4 +53,30 @@ const getProfile = asyncHandler(async (req: Request, res: Response): Promise<any
   });
 });
 
-export { createUser, getProfile };
+// @desc      Get user profile
+// @route     POST /api/v1/auth/login
+// @access    Public
+
+const login = asyncHandler(async (req: Request, res: Response): Promise<any> => {
+  const { email, password } = req.body.input.credentials;
+  const loginRequest = await fetch(AUTH_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      password,
+      returnSecureToken: true,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const { idToken } = await loginRequest.json();
+
+  if (!idToken) throw Error('No idToken');
+  return res.status(200).send({
+    accessToken: idToken,
+  });
+});
+
+export { createUser, getProfile, login };

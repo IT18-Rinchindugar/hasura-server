@@ -28,7 +28,7 @@ export const createApp = async () => {
   });
 
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, path: '/api/v1/graphql' });
 
   // Without this middleware
   app.use(express.json());

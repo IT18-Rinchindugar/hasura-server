@@ -9,6 +9,7 @@ const {
   GOOGLE_FIREBASE_CONFIG = 'firebase-config.json',
   EMAIL_PROVIDER = '',
   LOG_PATH = '',
+  GOOGLE_FIREBASE_WEB_API_KEY = '',
 } = process.env;
 
 const config: ProcessEnv = {
@@ -17,6 +18,7 @@ const config: ProcessEnv = {
   GOOGLE_FIREBASE_CONFIG,
   EMAIL_PROVIDER,
   LOG_PATH,
+  GOOGLE_FIREBASE_WEB_API_KEY,
 };
 
 export default config;

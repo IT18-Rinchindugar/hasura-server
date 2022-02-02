@@ -8,7 +8,7 @@ export const typeDefs = gql`
     }
 
     type Query {
-        userProfile(id: String): UserProfile
+        firebase_user_profile(id: String): UserProfile
     }
 `;
 
