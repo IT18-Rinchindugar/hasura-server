@@ -71,12 +71,28 @@ const login = asyncHandler(async (req: Request, res: Response): Promise<any> => 
     },
   });
 
-  const { idToken } = await loginRequest.json();
+  const { idToken, localId } = await loginRequest.json();
 
   if (!idToken) throw Error('No idToken');
   return res.status(200).send({
     accessToken: idToken,
+    id: localId,
   });
 });
 
-export { createUser, getProfile, login };
+// @desc      Auth Hook permission
+// @route     GET /api/v1/auth/authHook
+// @access    Public
+
+const authHook = asyncHandler(async (req: Request, res: Response): Promise<any> => {
+  const customAuthHeader = req.headers['secret-header'];
+  if (!customAuthHeader || customAuthHeader !== 'trust-me') { throw Error('No header or invalid'); }
+
+  return res.status(200).send({
+    'x-hasura-role': 'user',
+  });
+});
+
+export {
+  createUser, getProfile, login, authHook,
+};
